@@ -1,630 +1,969 @@
 <!doctype html>
-      <html>
-      <head>
-        <meta charset="utf-8"/>
-        <title>Oracle应用开发</title>
-        
-        <style>
-          html, body { margin: 0; padding: 0; background-color: #ffffff; }
-          .markdown-body { box-sizing: border-box; min-width: 200px; max-width: 980px; margin: 0 auto; padding: 45px; }
-          @media (max-width: 767px) { .markdown-body { padding: 15px; } }
-          .markdown-body {
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  line-height: 1.5;
-  color: #24292e;
-  font-family: system-ui, -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;;
-  font-size: 16px;
-  line-height: 1.5;
-  word-wrap: break-word;
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+
+<style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
+.mac-os-11 { --title-bar-height: 28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5 { white-space: pre-wrap; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.428571; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; font-size-adjust: inherit; font-kerning: inherit; font-variant-alternates: inherit; font-variant-ligatures: inherit; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-position: inherit; font-feature-settings: inherit; font-optical-sizing: inherit; font-variation-settings: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+thead, tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; border-right-style: none; border-right-color: currentcolor; background-color: inherit; }
+.CodeMirror-linenumber { -webkit-user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+svg { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; border-color: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
+  .typora-export * { print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  #write > p:nth-child(1) { margin-top: 0px; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+  figure { overflow-x: visible; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: medium; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.reversefootnote { font-family: ui-monospace, sans-serif; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: medium !important; border-style: none !important; border-color: currentcolor !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; border-bottom-style: none; border-bottom-color: currentcolor; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: medium; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex: 2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; overflow-wrap: anywhere; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.428571rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left-width: 28px; border-left-style: solid; border-left-color: transparent; border-right-width: 28px; border-right-style: solid; border-right-color: transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right-width: 8px; border-right-style: solid; border-right-color: transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+mjx-container { break-inside: avoid; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; outline: 0px; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: auto hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 10px; z-index: 3; overflow-y: hidden; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: medium !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right-width: 30px; border-right-style: solid; border-right-color: transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right-width: medium; border-right-style: none; border-right-color: currentcolor; width: auto; }
+.CodeMirror-linebackground { position: absolute; inset: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right-width: medium; border-right-style: none; border-right-color: currentcolor; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+span.cm-underlined { text-decoration: underline; }
+span.cm-strikethrough { text-decoration: line-through; }
+.cm-tw-syntaxerror { color: rgb(255, 255, 255); background-color: rgb(153, 0, 0); }
+.cm-tw-deleted { text-decoration: line-through; }
+.cm-tw-header5 { font-weight: 700; }
+.cm-tw-listitem:first-child { padding-left: 10px; }
+.cm-tw-box { border-style: solid; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-color: inherit; border-top-width: 0px !important; }
+.cm-tw-underline { text-decoration: underline; }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
 }
 
-.markdown-body details {
+
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+/* cyrillic-ext */
+/* cyrillic */
+/* greek-ext */
+/* greek */
+/* vietnamese */
+/* latin-ext */
+/* latin */
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Source Sans Pro SemiBold'), local('SourceSansPro-SemiBold'), url('file:///Users/luoyuequan/Library/Application%20Support/abnerworks.Typora/themes/vue/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlxdu.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}@import '';
+
+:root {
+    --side-bar-bg-color: #fff;
+    --control-text-color: #777;
+    --font-sans-serif: 'Ubuntu', 'Source Sans Pro', sans-serif !important;
+    --font-monospace: 'Fira Code', 'Roboto Mono', monospace !important;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-sans-serif);
+    color: #34495e;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6rem;
+    letter-spacing: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+#write {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 20px 30px 100px;
+}
+
+#write p {
+    line-height: 1.6rem;
+    word-spacing: .05rem;
+}
+
+#write ol li {
+    padding-left: 0.5rem;
+}
+
+#write > ul:first-child,
+#write > ol:first-child {
+    margin-top: 30px;
+}
+
+body > *:first-child {
+    margin-top: 0 !important;
+}
+
+body > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+a {
+    color: #42b983;
+    font-weight: 600;
+    padding: 0 2px;
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+
+h1 tt,
+h1 code {
+    font-size: inherit !important;
+}
+
+h2 tt,
+h2 code {
+    font-size: inherit !important;
+}
+
+h3 tt,
+h3 code {
+    font-size: inherit !important;
+}
+
+h4 tt,
+h4 code {
+    font-size: inherit !important;
+}
+
+h5 tt,
+h5 code {
+    font-size: inherit !important;
+}
+
+h6 tt,
+h6 code {
+    font-size: inherit !important;
+}
+
+h2 a,
+h3 a {
+    color: #34495e;
+}
+
+h1 {
+    padding-bottom: .4rem;
+    font-size: 2.2rem;
+    line-height: 1.3;
+}
+
+h2 {
+    font-size: 1.75rem;
+    line-height: 1.225;
+    margin: 35px 0 15px;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #ddd;
+}
+
+h3 {
+    font-size: 1.4rem;
+    line-height: 1.43;
+    margin: 20px 0 7px;
+}
+
+h4 {
+    font-size: 1.2rem;
+}
+
+h5 {
+    font-size: 1rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: #777;
+}
+
+p,
+blockquote,
+ul,
+ol,
+dl,
+table {
+    margin: 0.8em 0;
+}
+
+li > ol,
+li > ul {
+    margin: 0 0;
+}
+
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+body > h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+body > h1:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+body > h3:first-child,
+body > h4:first-child,
+body > h5:first-child,
+body > h6:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+a:first-child h1,
+a:first-child h2,
+a:first-child h3,
+a:first-child h4,
+a:first-child h5,
+a:first-child h6 {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+h1 p,
+h2 p,
+h3 p,
+h4 p,
+h5 p,
+h6 p {
+    margin-top: 0;
+}
+
+li p.first {
+    display: inline-block;
+}
+
+ul,
+ol {
+    padding-left: 30px;
+}
+
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+
+blockquote {
+    border-left: 4px solid #42b983;
+    padding: 10px 15px;
+    color: #777;
+    background-color: rgba(66, 185, 131, .1);
+}
+
+table {
+    padding: 0;
+    word-break: initial;
+}
+
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+
+table tr:nth-child(2n),
+thead {
+    background-color: #fafafa;
+}
+
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+
+table tr td {
+    border: 1px solid #dfe2e5;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+#write strong {
+    padding: 0 1px;
+}
+
+#write em {
+    padding: 0 5px 0 2px;
+}
+
+#write table thead th {
+    background-color: #f2f2f2;
+}
+
+#write .CodeMirror-gutters {
+    border-right: none;
+}
+
+#write .md-fences {
+    border: 1px solid #F4F4F4;
+    -webkit-font-smoothing: initial;
+    margin: 0.8rem 0 !important;
+    padding: 0.3rem 0 !important;
+    line-height: 1.43rem;
+    background-color: #F8F8F8 !important;
+    border-radius: 2px;
+    font-family: var(--font-monospace);
+    font-size: 0.85rem;
+    word-wrap: normal;
+}
+
+#write .CodeMirror-wrap .CodeMirror-code pre {
+    padding-left: 12px;
+}
+
+#write code, tt {
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-family: var(--font-monospace);
+    font-size: 0.92rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+}
+
+tt {
+    margin: 0 2px;
+}
+
+#write .md-footnote {
+    background-color: #f8f8f8;
+    color: #e96900;
+}
+
+/* heighlight. */
+#write mark {
+    background-color: #EBFFEB;
+    border-radius: 2px;
+    padding: 2px 4px;
+    margin: 0 2px;
+    color: #222;
+    font-weight: 500;
+}
+
+#write del {
+    padding: 1px 2px;
+}
+
+.cm-s-inner .cm-link,
+.cm-s-inner.cm-link {
+    color: #22a2c9;
+}
+
+.cm-s-inner .cm-string {
+    color: #22a2c9;
+}
+
+.md-task-list-item > input {
+    margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+    background-color: #f8f8f8;
+}
+
+.md-diagram-panel {
+    position: static !important;
+}
+
+#write pre.md-meta-block {
+    padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block > .code-tooltip {
+    bottom: .375rem;
+}
+
+#write > h3.md-focus:before {
+    left: -1.5625rem;
+    top: .375rem;
+}
+
+#write > h4.md-focus:before {
+    left: -1.5625rem;
+    top: .285714286rem;
+}
+
+#write > h5.md-focus:before {
+    left: -1.5625rem;
+    top: .285714286rem;
+}
+
+#write > h6.md-focus:before {
+    left: -1.5625rem;
+    top: .285714286rem;
+}
+
+.md-image > .md-meta {
+    border-radius: 3px;
+    font-family: var(--font-monospace);
+    padding: 2px 0 0 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: inherit;
+}
+
+.md-toc {
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#md-notification:before {
+    top: 10px;
+}
+
+/** focus mode */
+
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header,
+.context-menu,
+.megamenu-content,
+footer {
+    font-family: var(--font-sans-serif);
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state {
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+
+
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
   display: block;
+  text-align: center;
+  margin: 1em 0;
 }
 
-.markdown-body summary {
-  display: list-item;
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
 }
 
-.markdown-body a {
-  background-color: initial;
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
 }
 
-.markdown-body a:active,
-.markdown-body a:hover {
-  outline-width: 0;
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
 }
 
-.markdown-body strong {
-  font-weight: inherit;
-  font-weight: bolder;
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
 }
 
-.markdown-body h1 {
-  font-size: 2em;
-  margin: .67em 0;
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
 }
 
-.markdown-body img {
-  border-style: none;
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
 }
 
-.markdown-body code,
-.markdown-body kbd,
-.markdown-body pre {
-  font-family: monospace,monospace;
-  font-size: 1em;
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
 }
 
-.markdown-body hr {
-  box-sizing: initial;
-  height: 0;
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
   overflow: visible;
 }
 
-.markdown-body input {
-  font: inherit;
-  margin: 0;
-}
-
-.markdown-body input {
-  overflow: visible;
-}
-
-.markdown-body [type=checkbox] {
-  box-sizing: border-box;
-  padding: 0;
-}
-
-.markdown-body * {
-  box-sizing: border-box;
-}
-
-.markdown-body input {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-}
-
-.markdown-body a {
-  color: #0366d6;
-  text-decoration: none;
-}
-
-.markdown-body a:hover {
-  text-decoration: underline;
-}
-
-.markdown-body strong {
-  font-weight: 600;
-}
-
-.markdown-body hr {
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
   height: 0;
-  margin: 15px 0;
-  overflow: hidden;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid #dfe2e5;
 }
 
-.markdown-body hr:after,
-.markdown-body hr:before {
-  display: table;
-  content: "";
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.markdown-body hr:after {
-  clear: both;
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
 }
 
-.markdown-body table {
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-
-.markdown-body td,
-.markdown-body th {
-  padding: 0;
-}
-
-.markdown-body details summary {
+g[data-mml-node="maction"][data-toggle] {
   cursor: pointer;
 }
 
-.markdown-body kbd {
-  display: inline-block;
-  padding: 3px 5px;
-  font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-  line-height: 10px;
-  color: #444d56;
-  vertical-align: middle;
-  background-color: #fafbfc;
-  border: 1px solid #d1d5da;
-  border-radius: 3px;
-  box-shadow: inset 0 -1px 0 #d1d5da;
-}
-
-.markdown-body h1,
-.markdown-body h2,
-.markdown-body h3,
-.markdown-body h4,
-.markdown-body h5,
-.markdown-body h6 {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.markdown-body h1 {
-  font-size: 32px;
-}
-
-.markdown-body h1,
-.markdown-body h2 {
-  font-weight: 600;
-}
-
-.markdown-body h2 {
-  font-size: 24px;
-}
-
-.markdown-body h3 {
-  font-size: 20px;
-}
-
-.markdown-body h3,
-.markdown-body h4 {
-  font-weight: 600;
-}
-
-.markdown-body h4 {
-  font-size: 16px;
-}
-
-.markdown-body h5 {
-  font-size: 14px;
-}
-
-.markdown-body h5,
-.markdown-body h6 {
-  font-weight: 600;
-}
-
-.markdown-body h6 {
-  font-size: 12px;
-}
-
-.markdown-body p {
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-.markdown-body blockquote {
-  margin: 0;
-}
-
-.markdown-body ol,
-.markdown-body ul {
-  padding-left: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.markdown-body ol ol,
-.markdown-body ul ol {
-  list-style-type: lower-roman;
-}
-
-.markdown-body ol ol ol,
-.markdown-body ol ul ol,
-.markdown-body ul ol ol,
-.markdown-body ul ul ol {
-  list-style-type: lower-alpha;
-}
-
-.markdown-body dd {
-  margin-left: 0;
-}
-
-.markdown-body code,
-.markdown-body pre {
-  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-  font-size: 12px;
-}
-
-.markdown-body pre {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.markdown-body input::-webkit-inner-spin-button,
-.markdown-body input::-webkit-outer-spin-button {
-  margin: 0;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.markdown-body :checked+.radio-label {
-  position: relative;
-  z-index: 1;
-  border-color: #0366d6;
-}
-
-.markdown-body hr {
-  border-bottom-color: #eee;
-}
-
-.markdown-body kbd {
-  display: inline-block;
-  padding: 3px 5px;
-  font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-  line-height: 10px;
-  color: #444d56;
-  vertical-align: middle;
-  background-color: #fafbfc;
-  border: 1px solid #d1d5da;
-  border-radius: 3px;
-  box-shadow: inset 0 -1px 0 #d1d5da;
-}
-
-.markdown-body:after,
-.markdown-body:before {
-  display: table;
-  content: "";
-}
-
-.markdown-body:after {
-  clear: both;
-}
-
-.markdown-body>:first-child {
-  margin-top: 0!important;
-}
-
-.markdown-body>:last-child {
-  margin-bottom: 0!important;
-}
-
-.markdown-body a:not([href]) {
-  color: inherit;
-  text-decoration: none;
-}
-
-.markdown-body blockquote,
-.markdown-body details,
-.markdown-body dl,
-.markdown-body ol,
-.markdown-body p,
-.markdown-body pre,
-.markdown-body table,
-.markdown-body ul {
-  margin-top: 0;
-  margin-bottom: 16px;
-}
-
-.markdown-body hr {
-  height: .25em;
-  padding: 0;
-  margin: 24px 0;
-  background-color: #e1e4e8;
-  border: 0;
-}
-
-.markdown-body blockquote {
-  padding: 0 1em;
-  color: #6a737d;
-  border-left: .25em solid #dfe2e5;
-}
-
-.markdown-body blockquote>:first-child {
-  margin-top: 0;
-}
-
-.markdown-body blockquote>:last-child {
-  margin-bottom: 0;
-}
-
-.markdown-body h1,
-.markdown-body h2,
-.markdown-body h3,
-.markdown-body h4,
-.markdown-body h5,
-.markdown-body h6 {
-  margin-top: 24px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-.markdown-body h1 {
-  font-size: 2em;
-}
-
-.markdown-body h1,
-.markdown-body h2 {
-  padding-bottom: .3em;
-  border-bottom: 1px solid #eaecef;
-}
-
-.markdown-body h2 {
-  font-size: 1.5em;
-}
-
-.markdown-body h3 {
-  font-size: 1.25em;
-}
-
-.markdown-body h4 {
-  font-size: 1em;
-}
-
-.markdown-body h5 {
-  font-size: .875em;
-}
-
-.markdown-body h6 {
-  font-size: .85em;
-  color: #6a737d;
-}
-
-.markdown-body ol,
-.markdown-body ul {
-  padding-left: 2em;
-}
-
-.markdown-body ol ol,
-.markdown-body ol ul,
-.markdown-body ul ol,
-.markdown-body ul ul {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.markdown-body li {
-  word-wrap: break-all;
-}
-
-.markdown-body li>p {
-  margin-top: 16px;
-}
-
-.markdown-body li+li, .markdown-body li > ul {
-  margin-top: .25em;
-}
-
-.markdown-body ul li.task-list-item {
-  position: relative;
-  appearance: none;
-  list-style: none;
-}
-
-.markdown-body ul li.task-list-item.checked {
-  text-decoration-line: line-through;
-  color: #6e6e6e;
-}
-
-.markdown-body ul li.task-list-item:not(.checked) {
-  color: initial;
-}
-
-.markdown-body ul li.task-list-item::before {
-  content: '';
-  width: 13px;
-  height: 13px;
-  background-color: #fff;
-  position: absolute;
-  left: -28px;
-  top: 4px;
-  border-radius: 2px;
-  border: 2px solid #757575;
-}
-
-.markdown-body ul li.task-list-item.checked::before {
-  background-color: #1976d2;
-  border-color: #1976d2;
-}
-
-.markdown-body ul li.task-list-item.checked::after {
-  content: '';
-  position: absolute;
-  left: -22px;
-  top: 5px;
-  width: 4px;
-  height: 10px;
-  border: solid #fff;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-.markdown-body dl {
-  padding: 0;
-}
-
-.markdown-body dl dt {
-  padding: 0;
-  margin-top: 16px;
-  font-size: 1em;
-  font-style: italic;
-  font-weight: 600;
-}
-
-.markdown-body dl dd {
-  padding: 0 16px;
-  margin-bottom: 16px;
-}
-
-.markdown-body table {
-  width: 100%;
-  overflow: auto;
-}
-
-.markdown-body table th {
-  font-weight: 600;
-}
-
-.markdown-body table td,
-.markdown-body table th {
-  padding: 6px 13px;
-  border: 1px solid #dfe2e5;
-}
-
-.markdown-body table tr {
-  background-color: #fff;
-  border-top: 1px solid #c6cbd1;
-}
-
-.markdown-body table tr:nth-child(2n) {
-  background-color: #f6f8fa;
-}
-
-.markdown-body img {
-  max-width: 100%;
-  box-sizing: initial;
-  background-color: #fff;
-}
-
-.markdown-body p > img {
+mjx-status {
   display: block;
-  margin: 0 auto;
-}
-
-.markdown-body img[align=right] {
-  padding-left: 20px;
-}
-
-.markdown-body img[align=left] {
-  padding-right: 20px;
-}
-
-.markdown-body code {
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
   padding: .2em .4em;
-  margin: 0;
-  font-size: 85%;
-  background-color: rgba(27,31,35,.05);
-  border-radius: 3px;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
 }
 
-.markdown-body pre {
-  word-wrap: normal;
-}
-
-.markdown-body pre>code {
-  padding: 0;
-  margin: 0;
-  font-size: 100%;
-  word-break: normal;
-  white-space: pre;
-  background: transparent;
-  border: 0;
-}
-
-.markdown-body pre {
-  padding: 16px;
-  overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  background-color: #f6f8fa;
-  border-radius: 3px;
-}
-
-.markdown-body pre code {
-  display: inline;
-  max-width: auto;
-  padding: 0;
-  margin: 0;
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
   overflow: visible;
-  line-height: inherit;
-  word-wrap: normal;
-  background-color: initial;
-  border: 0;
 }
 
-.markdown-body mark {
-  display: inline-flex;
-  background-color: #fff8c5;
+mjx-container[jax="SVG2"] path[data-c], mjx-container[jax="SVG2"] use[data-c] {
+  stroke-width: 3;
 }
-          .ace-tm{ background: transparent!important; }.ace_static_highlight{ font-size: unset!important; }.ace_static_highlight {font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', 'Droid Sans Mono', monospace;font-size: 12px;white-space: pre-wrap}.ace_static_highlight .ace_gutter {width: 2em;text-align: right;padding: 0 3px 0 0;margin-right: 3px;contain: none;}.ace_static_highlight.ace_show_gutter .ace_line {padding-left: 2.6em;}.ace_static_highlight .ace_line { position: relative; }.ace_static_highlight .ace_gutter-cell {-moz-user-select: -moz-none;-khtml-user-select: none;-webkit-user-select: none;user-select: none;top: 0;bottom: 0;left: 0;position: absolute;}.ace_static_highlight .ace_gutter-cell:before {content: counter(ace_line, decimal);counter-increment: ace_line;}.ace_static_highlight {counter-reset: ace_line;}.ace-tm .ace_gutter {background: #f0f0f0;color: #333;}.ace-tm .ace_print-margin {width: 1px;background: #e8e8e8;}.ace-tm .ace_fold {background-color: #6B72E6;}.ace-tm {background-color: #FFFFFF;color: black;}.ace-tm .ace_cursor {color: black;}.ace-tm .ace_invisible {color: rgb(191, 191, 191);}.ace-tm .ace_storage,.ace-tm .ace_keyword {color: blue;}.ace-tm .ace_constant {color: rgb(197, 6, 11);}.ace-tm .ace_constant.ace_buildin {color: rgb(88, 72, 246);}.ace-tm .ace_constant.ace_language {color: rgb(88, 92, 246);}.ace-tm .ace_constant.ace_library {color: rgb(6, 150, 14);}.ace-tm .ace_invalid {background-color: rgba(255, 0, 0, 0.1);color: red;}.ace-tm .ace_support.ace_function {color: rgb(60, 76, 114);}.ace-tm .ace_support.ace_constant {color: rgb(6, 150, 14);}.ace-tm .ace_support.ace_type,.ace-tm .ace_support.ace_class {color: rgb(109, 121, 222);}.ace-tm .ace_keyword.ace_operator {color: rgb(104, 118, 135);}.ace-tm .ace_string {color: rgb(3, 106, 7);}.ace-tm .ace_comment {color: rgb(76, 136, 107);}.ace-tm .ace_comment.ace_doc {color: rgb(0, 102, 255);}.ace-tm .ace_comment.ace_doc.ace_tag {color: rgb(128, 159, 191);}.ace-tm .ace_constant.ace_numeric {color: rgb(0, 0, 205);}.ace-tm .ace_variable {color: rgb(49, 132, 149);}.ace-tm .ace_xml-pe {color: rgb(104, 104, 91);}.ace-tm .ace_entity.ace_name.ace_function {color: #0000A2;}.ace-tm .ace_heading {color: rgb(12, 7, 255);}.ace-tm .ace_list {color:rgb(185, 6, 144);}.ace-tm .ace_meta.ace_tag {color:rgb(0, 22, 142);}.ace-tm .ace_string.ace_regex {color: rgb(255, 0, 0)}.ace-tm .ace_marker-layer .ace_selection {background: rgb(181, 213, 255);}.ace-tm.ace_multiselect .ace_selection.ace_start {box-shadow: 0 0 3px 0px white;}.ace-tm .ace_marker-layer .ace_step {background: rgb(252, 255, 0);}.ace-tm .ace_marker-layer .ace_stack {background: rgb(164, 229, 101);}.ace-tm .ace_marker-layer .ace_bracket {margin: -1px 0 0 -1px;border: 1px solid rgb(192, 192, 192);}.ace-tm .ace_marker-layer .ace_active-line {background: rgba(0, 0, 0, 0.07);}.ace-tm .ace_gutter-active-line {background-color : #dcdcdc;}.ace-tm .ace_marker-layer .ace_selected-word {background: rgb(250, 250, 255);border: 1px solid rgb(200, 200, 250);}.ace-tm .ace_indent-guide {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;}
-        </style>
-      </head>
-      <body>
-        <article class="markdown-body">
-          <br/>
-<h2>基本概念</h2>
-<br/>
-<h2>Oracle常用数据类型</h2>
-<h3>Number</h3>
-<pre><code class="language-sql"><div class='ace-tm'><div class='ace_static_highlight' style='counter-reset:ace_line 0'><div class='ace_line'><span class='ace_storage ace_type'>NUMBER</span><span class='ace_paren ace_lparen'>(</span><span class='ace_identifier'>p</span>, <span class='ace_identifier'>s</span><span class='ace_paren ace_rparen'>)</span>
-</div><div class='ace_line'><span class='ace_comment'>-- <span class='ace_cjk' style='width:NaNpx'>精</span><span class='ace_cjk' style='width:NaNpx'>度</span>(p)<span class='ace_cjk' style='width:NaNpx'>是</span><span class='ace_cjk' style='width:NaNpx'>数</span><span class='ace_cjk' style='width:NaNpx'>字</span><span class='ace_cjk' style='width:NaNpx'>中</span><span class='ace_cjk' style='width:NaNpx'>的</span><span class='ace_cjk' style='width:NaNpx'>总</span><span class='ace_cjk' style='width:NaNpx'>位</span><span class='ace_cjk' style='width:NaNpx'>数</span><span class='ace_cjk' style='width:NaNpx'>，</span><span class='ace_cjk' style='width:NaNpx'>范</span><span class='ace_cjk' style='width:NaNpx'>围</span><span class='ace_cjk' style='width:NaNpx'>从</span> 1 <span class='ace_cjk' style='width:NaNpx'>到</span> 38<span class='ace_cjk' style='width:NaNpx'>。</span></span>
-</div><div class='ace_line'><span class='ace_comment'>-- <span class='ace_cjk' style='width:NaNpx'>小</span><span class='ace_cjk' style='width:NaNpx'>数</span><span class='ace_cjk' style='width:NaNpx'>位</span><span class='ace_cjk' style='width:NaNpx'>数</span>(s)<span class='ace_cjk' style='width:NaNpx'>是</span><span class='ace_cjk' style='width:NaNpx'>数</span><span class='ace_cjk' style='width:NaNpx'>字</span><span class='ace_cjk' style='width:NaNpx'>中</span><span class='ace_cjk' style='width:NaNpx'>小</span><span class='ace_cjk' style='width:NaNpx'>数</span><span class='ace_cjk' style='width:NaNpx'>点</span><span class='ace_cjk' style='width:NaNpx'>右</span><span class='ace_cjk' style='width:NaNpx'>侧</span><span class='ace_cjk' style='width:NaNpx'>的</span><span class='ace_cjk' style='width:NaNpx'>位</span><span class='ace_cjk' style='width:NaNpx'>数</span><span class='ace_cjk' style='width:NaNpx'>，</span><span class='ace_cjk' style='width:NaNpx'>范</span><span class='ace_cjk' style='width:NaNpx'>围</span><span class='ace_cjk' style='width:NaNpx'>从</span> -84 <span class='ace_cjk' style='width:NaNpx'>到</span> 127<span class='ace_cjk' style='width:NaNpx'>。</span></span>
-</div><div class='ace_line'><span class='ace_comment'>-- <span class='ace_cjk' style='width:NaNpx'>可</span><span class='ace_cjk' style='width:NaNpx'>存</span><span class='ace_cjk' style='width:NaNpx'>储</span><span class='ace_cjk' style='width:NaNpx'>数</span><span class='ace_cjk' style='width:NaNpx'>字</span><span class='ace_cjk' style='width:NaNpx'>范</span><span class='ace_cjk' style='width:NaNpx'>围</span><span class='ace_cjk' style='width:NaNpx'>，</span><span class='ace_cjk' style='width:NaNpx'>最</span><span class='ace_cjk' style='width:NaNpx'>小</span><span class='ace_cjk' style='width:NaNpx'>值</span>:-10^(p-s)+1 + 10^(-s)(10^s-1)<span class='ace_cjk' style='width:NaNpx'>，</span><span class='ace_cjk' style='width:NaNpx'>最</span><span class='ace_cjk' style='width:NaNpx'>大</span><span class='ace_cjk' style='width:NaNpx'>值</span><span class='ace_cjk' style='width:NaNpx'>：</span>10^(p-s)-1 + 10^(-s)(10^s-1)</span>
-</div><div class='ace_line'><span class='ace_comment'>-- <span class='ace_cjk' style='width:NaNpx'>例</span><span class='ace_cjk' style='width:NaNpx'>如</span><span class='ace_cjk' style='width:NaNpx'>，</span><span class='ace_cjk' style='width:NaNpx'>数</span><span class='ace_cjk' style='width:NaNpx'>字</span> 1234.56 <span class='ace_cjk' style='width:NaNpx'>的</span><span class='ace_cjk' style='width:NaNpx'>精</span><span class='ace_cjk' style='width:NaNpx'>度</span><span class='ace_cjk' style='width:NaNpx'>为</span> 6<span class='ace_cjk' style='width:NaNpx'>，</span><span class='ace_cjk' style='width:NaNpx'>小</span><span class='ace_cjk' style='width:NaNpx'>数</span><span class='ace_cjk' style='width:NaNpx'>位</span><span class='ace_cjk' style='width:NaNpx'>数</span><span class='ace_cjk' style='width:NaNpx'>为</span> 2<span class='ace_cjk' style='width:NaNpx'>。</span><span class='ace_cjk' style='width:NaNpx'>存</span><span class='ace_cjk' style='width:NaNpx'>储</span><span class='ace_cjk' style='width:NaNpx'>此</span><span class='ace_cjk' style='width:NaNpx'>数</span><span class='ace_cjk' style='width:NaNpx'>字</span><span class='ace_cjk' style='width:NaNpx'>需</span><span class='ace_cjk' style='width:NaNpx'>要</span> NUMBER(6,2)</span>
-</div></div></div></code></pre>
-<table>
-<thead>
-<tr>
-<th>示例</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>NUMBER(p)</code></td>
-<td>表示精度为p、小数位数为0的整数<br/>例：<code>NUMBER(2)，可存储-99~99</code><br/>如果存储的数字超过精度 p，Oracle 将发出错误<br/>例：<code>NUMBER(2)，存储100，报错ORA-01438: 值大于为此列指定的允许精度</code></td>
-</tr>
-<tr>
-<td><code>NUMBER</code></td>
-<td>等同于<code>NUMBER(38)</code></td>
-</tr>
-<tr>
-<td><code>INT</code></td>
-<td>别名，等同于<code>NUMBER(38)</code></td>
-</tr>
-<tr>
-<td><code>NUMBER(p, s)</code></td>
-<td>表示精度为p、小数位数为s的数字<br/>例：<code>NUMBER(3, 2)，可存储-9.99~9.99</code><br/>如果存储的数字超过小数位数 s，Oracle 将对该值进行四舍五入<br/>例：<code>NUMBER(3, 2)，存储1.234，实际值为1.23，存储1.236，实际值为1.24</code></td>
-</tr>
-<tr>
-<td><code>DECIMAL(p,s)</code></td>
-<td>别名，等同于<code>NUMBER(p,s)</code></td>
-</tr>
-</tbody>
-</table>
-<pre><code class="language-sql"><div class='ace-tm'><div class='ace_static_highlight' style='counter-reset:ace_line 0'><div class='ace_line'><span class='ace_keyword'>SELECT</span> <span class='ace_identifier'>CAST</span><span class='ace_paren ace_lparen'>(</span><span class='ace_constant ace_numeric'>11</span> <span class='ace_keyword'>AS</span> <span class='ace_storage ace_type'>NUMBER</span><span class='ace_paren ace_lparen'>(</span><span class='ace_constant ace_numeric'>2</span><span class='ace_paren ace_rparen'>))</span>       <span class='ace_comment'>--11</span>
-</div><div class='ace_line'><span class='ace_indent-guide'>    </span> , <span class='ace_identifier'>CAST</span><span class='ace_paren ace_lparen'>(</span><span class='ace_constant ace_numeric'>11</span> <span class='ace_keyword'>AS</span> <span class='ace_storage ace_type'>NUMBER</span><span class='ace_paren ace_rparen'>)</span>          <span class='ace_comment'>--11 <span class='ace_cjk' style='width:NaNpx'>等</span><span class='ace_cjk' style='width:NaNpx'>同</span><span class='ace_cjk' style='width:NaNpx'>于</span>NUMBER(38,0)</span>
-</div><div class='ace_line'><span class='ace_indent-guide'>    </span> , <span class='ace_identifier'>CAST</span><span class='ace_paren ace_lparen'>(</span><span class='ace_constant ace_numeric'>1.12</span> <span class='ace_keyword'>AS</span> <span class='ace_storage ace_type'>NUMBER</span><span class='ace_paren ace_lparen'>(</span><span class='ace_constant ace_numeric'>3</span>, <span class='ace_constant ace_numeric'>2</span><span class='ace_paren ace_rparen'>))</span>  <span class='ace_comment'>--1.12</span>
-</div><div class='ace_line'><span class='ace_indent-guide'>    </span> , <span class='ace_identifier'>CAST</span><span class='ace_paren ace_lparen'>(</span><span class='ace_constant ace_numeric'>1.126</span> <span class='ace_keyword'>AS</span> <span class='ace_storage ace_type'>NUMBER</span><span class='ace_paren ace_lparen'>(</span><span class='ace_constant ace_numeric'>3</span>, <span class='ace_constant ace_numeric'>2</span><span class='ace_paren ace_rparen'>))</span> <span class='ace_comment'>--1.13</span>
-</div><div class='ace_line'><span class='ace_indent-guide'>    </span> , <span class='ace_identifier'>CAST</span><span class='ace_paren ace_lparen'>(</span><span class='ace_constant ace_numeric'>111</span> <span class='ace_keyword'>AS</span> <span class='ace_storage ace_type'>NUMBER</span><span class='ace_paren ace_lparen'>(</span><span class='ace_constant ace_numeric'>3</span>, <span class='ace_constant ace_numeric'>-1</span><span class='ace_paren ace_rparen'>))</span>  <span class='ace_comment'>--110</span>
-</div><div class='ace_line'><span class='ace_indent-guide'>    </span> , <span class='ace_identifier'>CAST</span><span class='ace_paren ace_lparen'>(</span><span class='ace_constant ace_numeric'>111</span> <span class='ace_keyword'>AS</span> <span class='ace_storage ace_type'>NUMBER</span><span class='ace_paren ace_lparen'>(</span><span class='ace_constant ace_numeric'>2</span><span class='ace_paren ace_rparen'>))</span>      <span class='ace_comment'>--ORA-01438: <span class='ace_cjk' style='width:NaNpx'>值</span><span class='ace_cjk' style='width:NaNpx'>大</span><span class='ace_cjk' style='width:NaNpx'>于</span><span class='ace_cjk' style='width:NaNpx'>为</span><span class='ace_cjk' style='width:NaNpx'>此</span><span class='ace_cjk' style='width:NaNpx'>列</span><span class='ace_cjk' style='width:NaNpx'>指</span><span class='ace_cjk' style='width:NaNpx'>定</span><span class='ace_cjk' style='width:NaNpx'>的</span><span class='ace_cjk' style='width:NaNpx'>允</span><span class='ace_cjk' style='width:NaNpx'>许</span><span class='ace_cjk' style='width:NaNpx'>精</span><span class='ace_cjk' style='width:NaNpx'>度</span></span>
-</div><div class='ace_line'><span class='ace_indent-guide'>    </span> , <span class='ace_identifier'>CAST</span><span class='ace_paren ace_lparen'>(</span><span class='ace_constant ace_numeric'>11</span> <span class='ace_keyword'>AS</span> <span class='ace_storage ace_type'>NUMBER</span><span class='ace_paren ace_lparen'>(</span><span class='ace_constant ace_numeric'>2</span>, <span class='ace_constant ace_numeric'>1</span><span class='ace_paren ace_rparen'>))</span>    <span class='ace_comment'>--ORA-01438: <span class='ace_cjk' style='width:NaNpx'>值</span><span class='ace_cjk' style='width:NaNpx'>大</span><span class='ace_cjk' style='width:NaNpx'>于</span><span class='ace_cjk' style='width:NaNpx'>为</span><span class='ace_cjk' style='width:NaNpx'>此</span><span class='ace_cjk' style='width:NaNpx'>列</span><span class='ace_cjk' style='width:NaNpx'>指</span><span class='ace_cjk' style='width:NaNpx'>定</span><span class='ace_cjk' style='width:NaNpx'>的</span><span class='ace_cjk' style='width:NaNpx'>允</span><span class='ace_cjk' style='width:NaNpx'>许</span><span class='ace_cjk' style='width:NaNpx'>精</span><span class='ace_cjk' style='width:NaNpx'>度</span></span>
-</div><div class='ace_line'><span class='ace_keyword'>FROM</span> <span class='ace_identifier'>DUAL</span>;
-</div></div></div></code></pre>
-<h3>VARCHAR/CHAR</h3>
-<br/>
-<h3>NVARCHAR/NCHAR</h3>
-<h2>DDL</h2>
-<p>数据定义语言（Data Definition Language），用于创建、修改和删除数据库对象，如表、视图、索引、序列等。DDL语言可以用于定义数据库模式、约束和访问权限。</p>
-<h3>Table</h3>
-<pre><code class="language-sql"><div class='ace-tm'><div class='ace_static_highlight' style='counter-reset:ace_line 0'><div class='ace_line'>
-</div></div></div></code></pre>
-<h3>View</h3>
-<h3>Sequence</h3>
-<h3>INDEX</h3>
-<p>在 Oracle 中，索引名需要<strong>唯一</strong>。如果尝试为已存在的索引分配相同的名字，将会出现命名冲突错误。</p>
-<p>可以使用以下语法为索引指定名称：</p>
-<pre><code class="language-sql"><div class='ace-tm'><div class='ace_static_highlight' style='counter-reset:ace_line 0'><div class='ace_line'><span class='ace_keyword'>CREATE</span> [<span class='ace_identifier'>UNIQUE</span>] <span class='ace_identifier'>INDEX</span> <span class='ace_identifier'>index_name</span>
-</div><div class='ace_line'><span class='ace_keyword'>ON</span> <span class='ace_identifier'>table_name</span> <span class='ace_paren ace_lparen'>(</span><span class='ace_identifier'>column1</span>, <span class='ace_identifier'>column2</span>, ...<span class='ace_paren ace_rparen'>)</span>;
-</div></div></div></code></pre>
-<p>其中，<code>index_name</code> 是指定的索引名称，<code>table_name</code> 是所要创建索引的表，<code>column1, column2, ...</code> 是指定列的列表。</p>
-<p>注意，同样的方案列名不能重复，即不允许在相同的表上命名相同列的不同索引。</p>
-<h2>DQL</h2>
-<p>数据查询语言（Data Query Language），用于查询数据库中存储的数据，并从中检索所需信息的语言。DQL通常用于SELECT语句中，通过指定表名、列名、条件和排序方式等来查询和筛选数据。常见的DQL命令包括SELECT、FROM、WHERE、GROUP BY、HAVING、ORDER BY等。</p>
-<pre><code class="language-sql"><div class='ace-tm'><div class='ace_static_highlight' style='counter-reset:ace_line 0'><div class='ace_line'>
-</div></div></div></code></pre>
-<h2>DML</h2>
-<p>数据操作语言（Data Manipulation Language），用于添加、修改和删除数据库中记录的语言。DML通常使用INSERT、UPDATE和DELETE语句，分别用于将新记录插入到数据库表中、更新表中现有的记录和删除表中的记录。DML命令不仅能够操作数据，还可以控制数据库的事务处理，例如设置提交和回滚点等。</p>
-<h2>PL/SQL</h2>
 
-        </article>
-      </body>
-      </html>
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+							stroke-width: 0;
+						} @media print { @page {margin: 0 0 0 0;} body.typora-export {padding-left: 0; padding-right: 0;} #write {padding:0;}}
+</style><title>Oracle应用开发</title>
+</head>
+<body class='typora-export typora-export-show-outline typora-export-no-collapse-outline'><div class='typora-export-content'>
+<div class="typora-export-sidebar"><div class="outline-content"><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#基本概念">基本概念</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#表空间">表空间</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#sid">SID</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#服务名">服务名</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#客户端连接方式">客户端连接方式</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h4"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#sql-developer">SQL Developer</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h4"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#java-jdbc">Java JDBC</a></div><ul class="outline-children"></ul></li></ul></li></ul></li><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#oracle常用数据类型">Oracle常用数据类型</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#数字数据类型">数字数据类型</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h4"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#number">Number</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h3"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#字符数据类型">字符数据类型</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h4"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#char">CHAR</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h4"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#varchar2">VARCHAR2</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h4"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#nchar">NCHAR</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h4"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#nvarchar">NVARCHAR</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h3"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#日期数据类型">日期数据类型</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h4"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#date">Date</a></div><ul class="outline-children"></ul></li></ul></li></ul></li><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#ddl">DDL</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h3"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#table">Table</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h5"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#临时表">临时表</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h3"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#view">View</a></div><ul class="outline-children"><li class="outline-item-wrapper outline-h5"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#物化视图">物化视图</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h3"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#sequence">Sequence</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h3"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#index">INDEX</a></div><ul class="outline-children"></ul></li></ul></li><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#dql">DQL</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#dml">DML</a></div><ul class="outline-children"></ul></li><li class="outline-item-wrapper outline-h2"><div class="outline-item"><span class="outline-expander"></span><a class="outline-label" href="#plsql">PL/SQL</a></div><ul class="outline-children"></ul></li></div></div><div id='write'  class=''><blockquote><p><span>本次内容，主要面向开发，需要有一定的数据库基础知识。</span></p><p><span>涉及的内容：Oracle的基本概念，开发中常用的DDL、DML、DQL，以及PL/SQL</span></p></blockquote><h2 id='基本概念'><span>基本概念</span></h2><h3 id='表空间'><span>表空间</span></h3><p><span>表空间是Oracle数据库中用于组织和管理数据的逻辑存储单位。一个表空间是一些数据文件或支持空间管理功能的磁盘区域的集合。每个表空间都有一个名字，并且可能有一些可选的特性，如用户限制、数据文件大小限制、自动扩展和备份等。</span></p><p><span>表空间是Oracle中的重要概念，它决定了数据库中数据的存储方式和管理方式。表空间可包含多个数据文件，每个数据文件只属于一个表空间。当一个表、索引或其他数据库对象被创建时，它们将被分配到某个表空间中并使用表空间中的数据文件来存储数据。</span></p><h3 id='sid'><span>SID</span></h3><p><span>SID是Oracle实例的唯一标识符，它代表着一个Oracle数据库实例。在连接到Oracle数据库时，客户端需要提供一个SID来标识要连接的Oracle实例。SID通常由三个到八个字符组成，并且是在安装Oracle实例时指定的。</span></p><h3 id='服务名'><span>服务名</span></h3><p><span>服务名是在Oracle网络环境中定义的一个数据库或应用程序的名称。服务名通常比SID更具有描述性和可读性，并且可以很容易地被管理员进行配置和管理。服务名可以指向多个Oracle实例，实现负载均衡。</span></p><blockquote><p><span>服务名比SID更具有灵活性、可管理性和容错性。在连接Oracle数据库时，建议使用服务名来代替SID。</span></p></blockquote><h3 id='客户端连接方式'><span>客户端连接方式</span></h3><h4 id='sql-developer'><span>SQL Developer</span></h4><blockquote><p><span>Oracle SQL Developer是一个免费的集成开发环境，简化了传统和云部署中Oracle数据库的开发和管理。</span></p><p><span>SQL Developer为您的PL/SQL应用程序提供完整的端到端开发，用于运行查询和脚本的工作表，用于管理数据库的DBA控制台，报告界面，完整的数据建模解决方案，以及用于将第三方数据库移动到甲骨文的迁移平台。</span></p></blockquote><p><span>下载地址：</span><a href='https://www.oracle.com/database/sqldeveloper/technologies/download/'><span>Oracle SQL Developer Downloads</span></a></p><p><img src="./Snipaste_2023-05-12_11-01-53.png" alt="image-20230512020821659" style="zoom: 33%;" /></p><h4 id='java-jdbc'><span>Java JDBC</span></h4><ul><li><p><span>SID连接方式，使用以下URL格式进行连接：</span></p><ol start='' ><li><p><span>jdbc:oracle:thin:@host:port:SID</span></p></li><li><p><span>host和port分别代表数据库服务器的地址和端口号，SID是数据库实例的唯标识符。</span></p></li></ol></li><li><p><span>service_name连接方式，使用以下URL格式进行连接：</span></p><ol start='' ><li><p><span>jdbc:oracle:thin:@//host:port/service_name</span></p></li><li><p><span>host和port分别代表数据库服务器的地址和端口号，service_name是数据库实例的服务名。</span></p></li></ol></li></ul><h2 id='oracle常用数据类型'><span>Oracle常用数据类型</span></h2><h3 id='数字数据类型'><span>数字数据类型</span></h3><h4 id='number'><span>Number</span></h4><blockquote><p><code>NUMBER(p, s)</code></p></blockquote><p><span>NUMBER数据类型具有精度 </span><strong><span>p</span></strong><span> 和小数位数 </span><strong><span>s</span></strong><span>。</span></p><p><span>精度(p)是数字中的总位数，范围从 1 到 38。</span></p><p><span>小数位数(s)是数字中小数点右侧的位数，范围从 -84 到 127。</span></p><p><span>可存储数字范围：</span><mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg xmlns="http://www.w3.org/2000/svg" width="30.438ex" height="2.388ex" role="img" focusable="false" viewBox="0 -805.3 13453.5 1055.3" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" style="vertical-align: -0.566ex;"><defs><path id="MJX-2-TEX-N-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path><path id="MJX-2-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-2-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path id="MJX-2-TEX-N-30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path><path id="MJX-2-TEX-I-1D45D" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"></path><path id="MJX-2-TEX-I-1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path><path id="MJX-2-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path><path id="MJX-2-TEX-N-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><use data-c="2212" xlink:href="#MJX-2-TEX-N-2212"></use></g><g data-mml-node="mo" transform="translate(778,0)"><use data-c="28" xlink:href="#MJX-2-TEX-N-28"></use></g><g data-mml-node="msup" transform="translate(1167,0)"><g data-mml-node="mn"><use data-c="31" xlink:href="#MJX-2-TEX-N-31"></use><use data-c="30" xlink:href="#MJX-2-TEX-N-30" transform="translate(500,0)"></use></g><g data-mml-node="TeXAtom" transform="translate(1033,393.1) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D45D" xlink:href="#MJX-2-TEX-I-1D45D"></use></g><g data-mml-node="mo" transform="translate(503,0)"><use data-c="2212" xlink:href="#MJX-2-TEX-N-2212"></use></g><g data-mml-node="mi" transform="translate(1281,0)"><use data-c="1D460" xlink:href="#MJX-2-TEX-I-1D460"></use></g></g></g><g data-mml-node="mo" transform="translate(3487.4,0)"><use data-c="29" xlink:href="#MJX-2-TEX-N-29"></use></g><g data-mml-node="mo" transform="translate(4098.7,0)"><use data-c="2B" xlink:href="#MJX-2-TEX-N-2B"></use></g><g data-mml-node="msup" transform="translate(5098.9,0)"><g data-mml-node="mn"><use data-c="31" xlink:href="#MJX-2-TEX-N-31"></use><use data-c="30" xlink:href="#MJX-2-TEX-N-30" transform="translate(500,0)"></use></g><g data-mml-node="TeXAtom" transform="translate(1033,393.1) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mo"><use data-c="2212" xlink:href="#MJX-2-TEX-N-2212"></use></g><g data-mml-node="mi" transform="translate(778,0)"><use data-c="1D460" xlink:href="#MJX-2-TEX-I-1D460"></use></g></g></g><g data-mml-node="mi" transform="translate(7063.6,0)"><text data-variant="italic" transform="scale(1,-1)" font-size="884px" font-family="serif" font-style="italic">～</text></g><g data-mml-node="msup" transform="translate(7945.9,0)"><g data-mml-node="mn"><use data-c="31" xlink:href="#MJX-2-TEX-N-31"></use><use data-c="30" xlink:href="#MJX-2-TEX-N-30" transform="translate(500,0)"></use></g><g data-mml-node="TeXAtom" transform="translate(1033,393.1) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D45D" xlink:href="#MJX-2-TEX-I-1D45D"></use></g><g data-mml-node="mo" transform="translate(503,0)"><use data-c="2212" xlink:href="#MJX-2-TEX-N-2212"></use></g><g data-mml-node="mi" transform="translate(1281,0)"><use data-c="1D460" xlink:href="#MJX-2-TEX-I-1D460"></use></g></g></g><g data-mml-node="mo" transform="translate(10488.5,0)"><use data-c="2212" xlink:href="#MJX-2-TEX-N-2212"></use></g><g data-mml-node="msup" transform="translate(11488.8,0)"><g data-mml-node="mn"><use data-c="31" xlink:href="#MJX-2-TEX-N-31"></use><use data-c="30" xlink:href="#MJX-2-TEX-N-30" transform="translate(500,0)"></use></g><g data-mml-node="TeXAtom" transform="translate(1033,393.1) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mo"><use data-c="2212" xlink:href="#MJX-2-TEX-N-2212"></use></g><g data-mml-node="mi" transform="translate(778,0)"><use data-c="1D460" xlink:href="#MJX-2-TEX-I-1D460"></use></g></g></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>−</mo><mo stretchy="false">(</mo><msup><mn>10</mn><mrow data-mjx-texclass="ORD"><mi>p</mi><mo>−</mo><mi>s</mi></mrow></msup><mo stretchy="false">)</mo><mo>+</mo><msup><mn>10</mn><mrow data-mjx-texclass="ORD"><mo>−</mo><mi>s</mi></mrow></msup><mi>～</mi><msup><mn>10</mn><mrow data-mjx-texclass="ORD"><mi>p</mi><mo>−</mo><mi>s</mi></mrow></msup><mo>−</mo><msup><mn>10</mn><mrow data-mjx-texclass="ORD"><mo>−</mo><mi>s</mi></mrow></msup></math></mjx-assistive-mml></mjx-container><script type="math/tex">-(10^{p-s})+10^{-s}～10^{p-s}-10^{-s}</script></p><p><span>例如，数字 1234.56 的精度为 6，小数位数为 2。存储此数字需要 NUMBER(6,2)</span></p><figure class='table-figure'><table><thead><tr><th><span>示例</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><code>NUMBER(p)</code></td><td><span>表示精度为p、小数位数为0的整数</span><br/><span>例：</span><code>NUMBER(2)，可存储-99~99</code><br/><span>如果存储的数字超过精度 p，Oracle 将发出错误</span><br/><span>例：</span><code>NUMBER(2)，存储100，报错ORA-01438: 值大于为此列指定的允许精度</code></td></tr><tr><td><code>NUMBER</code></td><td><span>等同于</span><code>NUMBER(38)</code></td></tr><tr><td><code>INT</code><br /><code>INTEGER</code></td><td><span>别名，等同于</span><code>NUMBER(38)</code></td></tr><tr><td><code>NUMBER(p, s)</code></td><td><span>表示精度为p、小数位数为s的数字</span><br/><span>例：</span><code>NUMBER(3, 2)，可存储-9.99~9.99</code><br/><span>如果存储的数字超过小数位数 s，Oracle 将对该值进行四舍五入</span><br/><span>例：</span><code>NUMBER(3, 2)，存储1.234，实际值为1.23，存储1.236，实际值为1.24</code><br /><span>小数位数为负数，则会将小数点左侧的数值舍入。</span><br /><span>例：</span><code>NUMBER(3, -1)，存储111，实际值为110</code></td></tr><tr><td><code>DECIMAL(p,s)</code></td><td><span>别名，等同于</span><code>NUMBER(p,s)</code></td></tr></tbody></table></figure><blockquote><p><span>NUMBER数据类型，不支持无符号设置，可以通过约束限制，达到类似的结果。</span></p></blockquote><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 38px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 26px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>4</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -26px; width: 26px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">CREATE</span> <span class="cm-keyword">TABLE</span> mytable <span class="cm-bracket">(</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  id NUMBER<span class="cm-bracket">(</span><span class="cm-number">2</span><span class="cm-bracket">)</span> <span class="cm-keyword">NOT</span> <span class="cm-atom">NULL</span><span class="cm-punctuation">,</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-keyword">CONSTRAINT</span> chk_unsigned <span class="cm-keyword">CHECK</span> <span class="cm-bracket">(</span>id <span class="cm-operator">&gt;=</span> <span class="cm-number">0</span><span class="cm-bracket">)</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">)</span><span class="cm-punctuation">;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 88px;"></div><div class="CodeMirror-gutters" style="height: 88px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><h3 id='字符数据类型'><span>字符数据类型</span></h3><h4 id='char'><span>CHAR</span></h4><p><span>固定长度的字符串，可存储大小为 1 到 2000 字节。</span></p><p><span>如果存储的值的长度小于定义的长度，Oracle 会将字符串的后方填充空格到最大长度。</span></p><p><span>如果插入的值长度大于列，Oracle 将返回错误。</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 38px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 26px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>3</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -26px; width: 26px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">-- 以字节或字符为单位指定字符串长度。</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-type">CHAR</span><span class="cm-bracket">(</span>length BYTE<span class="cm-bracket">)</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-type">CHAR</span><span class="cm-bracket">(</span>length <span class="cm-type">CHAR</span><span class="cm-bracket">)</span> <span class="cm-comment">-- UTF8字符集</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 66px;"></div><div class="CodeMirror-gutters" style="height: 66px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><p><span>在安装 Oracle 数据库时，如果没有进行字符集设置，Oracle 将使用系统默认字符集。 </span></p><p><span>需要注意的是，在实际应用中，建议尽量使用 </span><code>UTF-8</code><span> 字符集，因为它是一种通用的字符集，可以支持几乎所有的语言和字符。同时，它也是 Oracle 公司推荐的字符集。</span></p><p><span>在 Oracle 中，可以使用以下两种方式来查看字符集：</span></p><ol start='' ><li><p><span>查看数据库字符集：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 38px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 26px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -26px; width: 26px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">SELECT</span> <span class="cm-keyword">VALUE</span> <span class="cm-keyword">FROM</span> NLS_DATABASE_PARAMETERS <span class="cm-keyword">WHERE</span> PARAMETER<span class="cm-operator">=</span><span class="cm-string">'NLS_CHARACTERSET'</span><span class="cm-punctuation">;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 22px;"></div><div class="CodeMirror-gutters" style="height: 22px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><p><span>这条语句将返回数据库的字符集。如果没有指定字符集，Oracle 将使用系统默认的字符集。</span></p></li><li><p><span>查看会话字符集：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 38px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 26px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -26px; width: 26px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">SELECT</span> <span class="cm-keyword">VALUE</span> <span class="cm-keyword">FROM</span> NLS_SESSION_PARAMETERS <span class="cm-keyword">WHERE</span> PARAMETER<span class="cm-operator">=</span><span class="cm-string">'NLS_CHARACTERSET'</span><span class="cm-punctuation">;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 22px;"></div><div class="CodeMirror-gutters" style="height: 22px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><p><span>这条语句将返回当前会话使用的字符集。如果没有显式地指定字符集，Oracle 将使用数据库字符集作为会话字符集。</span></p></li></ol><figure class='table-figure'><table><thead><tr><th><span>示例</span></th><th><span>说明</span></th></tr></thead><tbody><tr><td><code>CHAR(length)</code></td><td><span>等同于</span><code>CHAR(length BYTE)</code><br /><span>例：</span><code>CHAR(2)，‘11’可以存储，‘中’不可以存储</code><br /><span>例：</span><code>CHAR(3)，‘111’，‘中’可以存储</code><br /><code>UTF-8</code><span>是一种1～4字节的变长编码</span></td></tr><tr><td><code>CHAR</code></td><td><span>等同于</span><code>CHAR(1 BYTE)</code></td></tr><tr><td><code>CHAR(length CHAR)</code></td><td><span>例：</span><code>CHAR(2 CHAR)，‘11’，‘中文’都可以存储</code></td></tr></tbody></table></figure><h4 id='varchar2'><span>VARCHAR2</span></h4><p><span>可变长度的字符串，可以存储范围为 1 到 4000 字节。</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 38px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 26px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>3</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -26px; width: 26px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">-- 以字节或字符为单位指定字符串长度。</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">VARCHAR2<span class="cm-bracket">(</span>max_size BYTE<span class="cm-bracket">)</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">VARCHAR2<span class="cm-bracket">(</span>max_size <span class="cm-type">CHAR</span><span class="cm-bracket">)</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 66px;"></div><div class="CodeMirror-gutters" style="height: 66px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><h4 id='nchar'><span>NCHAR</span></h4><p><span>NCHAR是一种固定长度的Unicode字符集字符串数据类型。</span></p><p><span>与CHAR数据类型类似，NCHAR数据类型中的字符必须具有相同的大小和空间限制。</span></p><p><span>不同之处在于，NCHAR数据类型存储的是Unicode字符，而CHAR存储的是单字节字符。</span></p><p><strong><span>NCHAR数据类型可以存储从0到2000个字符，其中每个字符占用2个字节。</span></strong></p><p><span>因此，如果列被定义为NCHAR(100)，该列将占用200字节的存储空间。</span></p><p><span>在创建一个包含NCHAR列的表时，需要指定列的长度，如下所示：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 38px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 26px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>8</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -26px; width: 26px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">CREATE</span> <span class="cm-keyword">TABLE</span> mytable <span class="cm-bracket">(</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; mycolumn NCHAR<span class="cm-bracket">(</span><span class="cm-number">100</span><span class="cm-bracket">)</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">)</span><span class="cm-punctuation">;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">-- 需要注意的是，如果要使用NCHAR数据类型存储数据，必须在列名前面添加“N”前缀。</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">-- 这是因为默认情况下Oracle将字符作为单字节编码而不是编码，添加“N”前缀可以告诉Oracle使用Unicode编码。</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">INSERT</span> <span class="cm-keyword">INTO</span> mytable<span class="cm-bracket">(</span>mycolumn<span class="cm-bracket">)</span> <span class="cm-keyword">VALUES</span> <span class="cm-bracket">(</span><span class="cm-keyword">N</span><span class="cm-string">'Unicode字符串'</span><span class="cm-bracket">)</span><span class="cm-punctuation">;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">-- 需要使用Unicode字符集编码的字符串和“N”前缀来进行匹配</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">SELECT</span> <span class="cm-operator">*</span> <span class="cm-keyword">FROM</span> mytable <span class="cm-keyword">WHERE</span> mycolumn <span class="cm-operator">=</span> <span class="cm-keyword">N</span><span class="cm-string">'Unicode字符串'</span><span class="cm-punctuation">;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 176px;"></div><div class="CodeMirror-gutters" style="height: 176px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><h4 id='nvarchar'><span>NVARCHAR</span></h4><p><span>NVARCHAR2是一种Unicode字符集的可变长度字符串数据类型。</span></p><p><span>每个字符都可以存储在1到4个字节之间，具体取决于所使用的字符集和编码方式。NVARCHAR2的最大长度是4,000个字符。</span></p><p><span>NVARCHAR2数据类型可以在不同的语言之间传递数据，例如在国际化的应用程序中。它支持所有的Unicode字符集，包括UTF-8和UTF-16。</span></p><p><span>在创建一个包含NVARCHAR2列的表时，需要指定列的最大长度，如下所示：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 38px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 26px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>5</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -26px; width: 26px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">CREATE</span> <span class="cm-keyword">TABLE</span> mytable <span class="cm-bracket">(</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; mycolumn NVARCHAR2<span class="cm-bracket">(</span><span class="cm-number">100</span><span class="cm-bracket">)</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">)</span><span class="cm-punctuation">;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">INSERT</span> <span class="cm-keyword">INTO</span> mytable<span class="cm-bracket">(</span>mycolumn<span class="cm-bracket">)</span> <span class="cm-keyword">VALUES</span> <span class="cm-bracket">(</span><span class="cm-keyword">N</span><span class="cm-string">'Unicode字符串'</span><span class="cm-bracket">)</span><span class="cm-punctuation">;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">SELECT</span> <span class="cm-operator">*</span> <span class="cm-keyword">FROM</span> mytable <span class="cm-keyword">WHERE</span> mycolumn <span class="cm-operator">=</span> <span class="cm-keyword">N</span><span class="cm-string">'Unicode字符串'</span><span class="cm-punctuation">;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 110px;"></div><div class="CodeMirror-gutters" style="height: 110px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><h3 id='日期数据类型'><span>日期数据类型</span></h3><h4 id='date'><span>Date</span></h4><p><code>DATE</code><span>数据类型包含日期和时间的值，精度到秒。</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 38px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 26px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>4</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -26px; width: 26px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">-- 当前系统时间</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">SELECT</span> SYSDATE <span class="cm-keyword">FROM</span> <span class="cm-keyword">DUAL</span><span class="cm-punctuation">;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">-- 格式化日期，返回日期字符串</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">SELECT</span> TO_CHAR<span class="cm-bracket">(</span>SYSDATE<span class="cm-punctuation">,</span> <span class="cm-string">'YYYY-MM-DD HH24:MI:SS'</span><span class="cm-bracket">)</span> <span class="cm-keyword">FROM</span> <span class="cm-keyword">DUAL</span><span class="cm-punctuation">;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 88px;"></div><div class="CodeMirror-gutters" style="height: 88px; left: 0px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><h2 id='ddl'><span>DDL</span></h2><p><span>数据定义语言（Data Definition Language），用于创建、修改和删除数据库对象，如表、视图、索引、序列等。DDL语言可以用于定义数据库模式、约束和访问权限。</span></p><h3 id='table'><span>Table</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 47px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 35px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>11</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -35px; width: 35px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">CREATE</span> <span class="cm-keyword">TABLE</span> <span class="cm-keyword">table_name</span> <span class="cm-bracket">(</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  column_1 data_type column_constraint<span class="cm-punctuation">,</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  column_2 data_type column_constraint<span class="cm-punctuation">,</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  ...</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  table_constraint</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-bracket">)</span><span class="cm-punctuation">;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">-- 基于查询结果，创建表，包含查询数据，不包含原表的主键、约束、默认值</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">-- 主要充当一个数据备份表</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">CREATE</span> <span class="cm-keyword">TABLE</span> TEST <span class="cm-keyword">AS</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">10</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">SELECT</span> <span class="cm-operator">*</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">11</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">FROM</span> TEST<span class="cm-punctuation">;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 242px;"></div><div class="CodeMirror-gutters" style="height: 242px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 35px;"></div></div></div></div></pre><h5 id='临时表'><span>临时表</span></h5><p><span>CREATE GLOBAL TEMPORARY TABLE是Oracle中创建全局临时表的语法。它可以创建一个全局共享的临时表，存储的数据只在当前事务或会话中可见，在会话结束前数据保留，但在事务结束后被自动清空。语法如下：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 38px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 26px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>8</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -26px; width: 26px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">CREATE</span> <span class="cm-keyword">GLOBAL</span> <span class="cm-keyword">TEMPORARY</span> <span class="cm-keyword">TABLE</span> <span class="cm-keyword">table_name</span> <span class="cm-bracket">(</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; column_1 datatype <span class="cm-bracket">[(</span>size<span class="cm-bracket">)]</span> <span class="cm-bracket">[</span><span class="cm-keyword">DEFAULT</span> default_value<span class="cm-bracket">]</span><span class="cm-punctuation">,</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; column_2 datatype <span class="cm-bracket">[(</span>size<span class="cm-bracket">)]</span> <span class="cm-bracket">[</span><span class="cm-keyword">DEFAULT</span> default_value<span class="cm-bracket">]</span><span class="cm-punctuation">,</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; .</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; .</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; column_n datatype <span class="cm-bracket">[(</span>size<span class="cm-bracket">)]</span> <span class="cm-bracket">[</span><span class="cm-keyword">DEFAULT</span> default_value<span class="cm-bracket">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">)</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">[</span><span class="cm-keyword">ON</span> <span class="cm-keyword">COMMIT</span> <span class="cm-bracket">{</span><span class="cm-keyword">DELETE</span> <span class="cm-operator">|</span> <span class="cm-keyword">PRESERVE</span><span class="cm-bracket">}</span> ROWS<span class="cm-bracket">]</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 176px;"></div><div class="CodeMirror-gutters" style="height: 176px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><p><span>其中，table_name是要创建的临时表的名称，column_1，column_2，... column_n 是要创建的临表中的列名和数据类型。ON COMMIT字句是可选的，指定在何时清空临时表数据。</span></p><p><span>如果指定了ON COMMIT DELETE ROWS，那么在事务提交或回滚时，临时表的数据被自动清空。如果指定了ON COMMIT PRESERVE ROWS，那么在事务提交时，临时表的数据被自动清空，但在事务回滚时，临时表的数据会保留。</span></p><h3 id='view'><span>View</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 38px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 26px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>5</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -26px; width: 26px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">CREATE</span> <span class="cm-bracket">[</span><span class="cm-keyword">OR</span> <span class="cm-keyword">REPLACE</span><span class="cm-bracket">]</span> <span class="cm-keyword">VIEW</span> view_name <span class="cm-bracket">[(</span>column_aliases<span class="cm-bracket">)]</span> <span class="cm-keyword">AS</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  defining<span class="cm-operator">-</span><span class="cm-keyword">query</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">-- 可防止通过视图进行更改基础表</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">[</span><span class="cm-keyword">WITH</span> <span class="cm-keyword">READ</span> ONLY<span class="cm-bracket">]</span> </span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">[</span><span class="cm-keyword">WITH</span> <span class="cm-keyword">CHECK</span> <span class="cm-keyword">OPTION</span><span class="cm-bracket">]</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 110px;"></div><div class="CodeMirror-gutters" style="height: 110px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><h5 id='物化视图'><span>物化视图</span></h5><p><span>物化视图是一种包含预先计算的数据结果的表，可以通过定期刷新或即时查询来更新数据，从而提高查询性能和响应速度。</span></p><p><span>与普通视图不同的是，物化视图会在计算结果后将结果存储在磁盘上，因此在查询时无需重复计算。在数据量很大且查询复杂的情况下特别有用。</span></p><p><span>在Oracle中，可以使用以下语法创建物化视图：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 47px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 35px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>11</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -35px; width: 35px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">CREATE</span> MATERIALIZED <span class="cm-keyword">VIEW</span> view_name </span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">[</span> PCTFREE <span class="cm-type">integer</span> <span class="cm-bracket">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">[</span> PCTUSED <span class="cm-type">integer</span> <span class="cm-bracket">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">[</span> INITRANS <span class="cm-type">integer</span> <span class="cm-bracket">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">[</span> MAXTRANS <span class="cm-type">integer</span> <span class="cm-bracket">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">[</span> <span class="cm-keyword">TABLESPACE</span> tablespace_name <span class="cm-bracket">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">[</span> STORAGTE <span class="cm-bracket">(</span>subclause<span class="cm-bracket">)</span> <span class="cm-bracket">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">BUILD <span class="cm-bracket">[</span> IMMEDIATE<span class="cm-operator">|</span>DEFERRED <span class="cm-bracket">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">REFRESH <span class="cm-bracket">[</span><span class="cm-keyword">FAST</span><span class="cm-operator">|</span>COMPLETE<span class="cm-operator">|</span><span class="cm-keyword">FORCE</span><span class="cm-bracket">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">10</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">[</span><span class="cm-keyword">ON</span> <span class="cm-bracket">[</span><span class="cm-keyword">COMMIT</span><span class="cm-operator">|</span>DEMAND<span class="cm-bracket">]</span> <span class="cm-bracket">[</span><span class="cm-keyword">PRESERVE</span> ROWS<span class="cm-operator">|</span><span class="cm-keyword">DELETE</span> ROWS<span class="cm-bracket">]</span> <span class="cm-bracket">[</span><span class="cm-keyword">WITH</span> <span class="cm-keyword">PRIMARY</span> <span class="cm-keyword">KEY</span><span class="cm-bracket">]</span> <span class="cm-bracket">]</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">11</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">AS</span> <span class="cm-keyword">query</span><span class="cm-punctuation">;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 242px;"></div><div class="CodeMirror-gutters" style="height: 242px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 35px;"></div></div></div></div></pre><p><span>其中，</span><code>view_name</code><span>表示要创建的物化视图的名称，</span><code>query</code><span>是查询语句，用于指定物化视图所包含的数据。其他各个参数则用于配置物化视图的不同属性。例如：</span></p><ul><li><p><code>BUILD IMMEDIATE</code><span>表示在创建物化视图的同时，立即将数据写入物化视图中</span></p></li><li><p><code>REFRESH</code><span>用于指定如何刷新物化视图。</span><code>FAST</code><span>表示增量刷新物化视图，</span><code>COMPLETE</code><span>表示完全刷新物化视图，</span><code>FORCE</code><span>表示刷新物化视图时强制使用指定的刷新方法</span></p></li><li><p><code>ON COMMIT</code><span>用于指定当发生事务提交时如何维护物化视图。可以指定为</span><code>PRESERVE ROWS</code><span>表示保留物化视图中对应的行，或者</span><code>DELETE ROWS</code><span>表示删除物化视图中对应的行。</span></p></li><li><p><code>WITH PRIMARY KEY</code><span>表示为物化视图创建主键。</span></p></li></ul><h3 id='sequence'><span>Sequence</span></h3><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 47px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 35px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><span><span>​</span>x</span></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -35px; width: 35px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">CREATE</span> SEQUENCE TEST_SEQUENCE <span class="cm-operator">--</span>序列名</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  INCREMENT <span class="cm-keyword">BY</span> <span class="cm-number">1</span> <span class="cm-comment">-- 每次加几个</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">START</span> <span class="cm-keyword">WITH</span> <span class="cm-number">10000</span> <span class="cm-comment">-- 从1开始计数</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  NOMAXVALUE <span class="cm-comment">-- 不设置最大值</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  NOCYCLE <span class="cm-comment">-- 一直累加，不循环</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">CACHE</span> <span class="cm-number">10</span><span class="cm-punctuation">;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">ALTER</span> SEQUENCE 序列名 INCREMENT <span class="cm-keyword">BY</span> 递增值<span class="cm-punctuation">;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">10</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">-- 查询序列的下一个可用值</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">11</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">SELECT</span> 序列名<span class="cm-variable-2">.NEXTVAL</span> <span class="cm-keyword">FROM</span> <span class="cm-keyword">DUAL</span><span class="cm-punctuation">;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">12</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">-- 重复查询序列的当前值</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">13</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">SELECT</span> 序列名<span class="cm-variable-2">.CURRVAL</span> <span class="cm-keyword">FROM</span> <span class="cm-keyword">DUAL</span><span class="cm-punctuation">;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">14</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">-- 递归获取序列的可用值</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">15</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">SELECT</span> 序列名<span class="cm-variable-2">.NEXTVAL</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">16</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">FROM</span> <span class="cm-keyword">DUAL</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">17</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-builtin">CONNECT</span> <span class="cm-keyword">BY</span> <span class="cm-keyword">LEVEL</span> <span class="cm-operator">&lt;=</span> <span class="cm-number">5</span><span class="cm-punctuation">;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 374px;"></div><div class="CodeMirror-gutters" style="height: 374px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 35px;"></div></div></div></div></pre><p><span>示例：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 47px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 35px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>10</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -35px; width: 35px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">CREATE</span> <span class="cm-keyword">TABLE</span> items<span class="cm-bracket">(</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  item_id NUMBER</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-bracket">)</span><span class="cm-punctuation">;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">INSERT</span> <span class="cm-keyword">INTO</span> items<span class="cm-bracket">(</span>item_id<span class="cm-bracket">)</span> <span class="cm-keyword">VALUES</span><span class="cm-bracket">(</span>item_seq<span class="cm-variable-2">.NEXTVAL</span><span class="cm-bracket">)</span><span class="cm-punctuation">;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">INSERT</span> <span class="cm-keyword">INTO</span> items<span class="cm-bracket">(</span>item_id<span class="cm-bracket">)</span> <span class="cm-keyword">VALUES</span><span class="cm-bracket">(</span>item_seq<span class="cm-variable-2">.NEXTVAL</span><span class="cm-bracket">)</span><span class="cm-punctuation">;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">COMMIT</span><span class="cm-punctuation">;</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -35px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">10</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">SELECT</span> item_id <span class="cm-keyword">FROM</span> items<span class="cm-punctuation">;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 220px;"></div><div class="CodeMirror-gutters" style="height: 220px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 35px;"></div></div></div></div></pre><h3 id='index'><span>INDEX</span></h3><blockquote><p><span>在 Oracle 中，索引名需要</span><strong><span>唯一</span></strong><span>。如果尝试为已存在的索引分配相同的名字，将会出现命名冲突错误。</span></p></blockquote><p><span>可以使用以下语法为索引指定名称：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="sql"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sql"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9px; left: 38px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 26px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>2</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -26px; width: 26px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">CREATE</span> <span class="cm-bracket">[</span><span class="cm-keyword">UNIQUE</span><span class="cm-bracket">]</span> <span class="cm-keyword">INDEX</span> index_name</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">ON</span> <span class="cm-keyword">table_name</span> <span class="cm-bracket">(</span>column1<span class="cm-punctuation">,</span> column2<span class="cm-punctuation">,</span> ...<span class="cm-bracket">)</span><span class="cm-punctuation">;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 44px;"></div><div class="CodeMirror-gutters" style="height: 44px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><p><code>index_name</code><span> 是指定的索引名称，</span><code>table_name</code><span> 是所要创建索引的表，</span><code>column1, column2, ...</code><span> 是指定列。</span></p><h2 id='dql'><span>DQL</span></h2><p><span>数据查询语言（Data Query Language），用于查询数据库中存储的数据，并从中检索所需信息的语言。DQL通常用于SELECT语句中，通过指定表名、列名、条件和排序方式等来查询和筛选数据。常见的DQL命令包括SELECT、FROM、WHERE、GROUP BY、HAVING、ORDER BY等。</span></p><h2 id='dml'><span>DML</span></h2><p><span>数据操作语言（Data Manipulation Language），用于添加、修改和删除数据库中记录的语言。DML通常使用INSERT、UPDATE和DELETE语句，分别用于将新记录插入到数据库表中、更新表中现有的记录和删除表中的记录。DML命令不仅能够操作数据，还可以控制数据库的事务处理，例如设置提交和回滚点等。</span></p><h2 id='plsql'><span>PL/SQL</span></h2></div></div>
+
+<script>(function (){var t=document.body.parentElement,e=[],n=null,i=document.body.classList.contains("typora-export-collapse-outline"),r=function(t,e,n){document.addEventListener(t,function(t){if(!t.defaultPrevented)for(var i=t.target;i&&i!=this;i=i.parentNode)if(i.matches(e)){!1===n.call(i,t)&&(t.preventDefault(),t.stopPropagation());break}},!1)};function o(){return t.scrollTop}r("click",".outline-expander",function(t){var e=this.closest(".outline-item-wrapper").classList;return e.contains("outline-item-open")?e.remove("outline-item-open"):e.add("outline-item-open"),c(),!1}),r("click",".outline-item",function(t){var e=this.querySelector(".outline-label");if(location.hash="#"+e.getAttribute("href"),i){var n=this.closest(".outline-item-wrapper").classList;n.contains("outline-item-open")||n.add("outline-item-open"),l(),n.add("outline-item-active")}});var a,s,u=function(){var t=o();n=null;for(var i=0;i<e.length&&e[i][1]-t<60;i++)n=e[i]},l=function(){document.querySelectorAll(".outline-item-active").forEach(t=>t.classList.remove("outline-item-active")),document.querySelectorAll(".outline-item-single.outline-item-open").forEach(t=>t.classList.remove("outline-item-open"))},c=function(){if(n){l();var t=document.querySelector('.outline-label[href="#'+(CSS.escape?CSS.escape(n[0]):n[0])+'"]');if(t)if(i){var e=t.closest(".outline-item-open>ul>.outline-item-wrapper");if(e)e.classList.add("outline-item-active");else{for(var r=(t=t.closest(".outline-item-wrapper")).parentElement.closest(".outline-item-wrapper");r;)r=(t=r).parentElement.closest(".outline-item-wrapper");t.classList.add("outline-item-active")}}else t.closest(".outline-item-wrapper").classList.add("outline-item-active")}};window.addEventListener("scroll",function(t){a&&clearTimeout(a),a=setTimeout(function(){u(),c()},300)});var f=function(){s=setTimeout(function(){!function(){e=[];var t=o();document.querySelector("#write").querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(n=>{var i=n.getAttribute("id");e.push([i,t+n.getBoundingClientRect().y])})}(),u(),c()},300)};window.addEventListener("resize",function(t){s&&clearTimeout(s),f()}),f()})();</script></body>
+</html>
