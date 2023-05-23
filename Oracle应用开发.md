@@ -290,7 +290,22 @@ CREATE [OR REPLACE] VIEW view_name [(column_aliases)] AS
 [WITH CHECK OPTION]
 ```
 
-##### 物化视图
+#### 查找联接视图的可更新列
+
+若要查找可以更新、插入或删除的列。下面的示例演示视图的哪一列是可更新的、可插入的和可删除的：
+
+```sql
+SELECT
+    *
+FROM
+    USER_UPDATABLE_COLUMNS
+WHERE
+    TABLE_NAME = 'ALL_CARS';
+```
+
+![Oracle 可更新联接视图](./Oracle-Updatable-Join-view.png)
+
+#### 物化视图
 
 物化视图是一种包含预先计算的数据结果的表，可以通过定期刷新或即时查询来更新数据，从而提高查询性能和响应速度。
 
@@ -474,6 +489,81 @@ WHERE rnum >= 11;
 SELECT COUNT(1) FROM TEST WHERE ROWNUM <= 1
 ```
 
+#### USING
+
+`USING` 是 SQL 语言中的一个子句，用于 JOIN 操作的连接条件。它通常用于连接两个或多个具有相似列名的，如果这些列名不同，也可以使用 `ON` 子句。 
+
+当使用 `USING` 连接两个表时，会将两个表中具有相同列名的列的值进行匹配，并结果返回该语句使用同列名条件，此不需要使用表名来指定 条的列。
+
+示例：
+
+```sql
+SELECT *
+FROM table1
+JOIN table2
+USING (column_name);
+```
+
+在上面的示例中，`USING` 条件连接了两个表，其中 `column_name` 是两个表中具有相同列名的列。这个查询返回了两个表中具有相同值的行。
+
+当连接条件不止一个时，可以使用多个列名，用逗号分隔，放在 `USING` 后面，如下所示：
+
+```sql
+SELECT *
+FROM table1
+JOIN table2
+USING (column_name1, column_name2);
+```
+
+在这个例子中，`column_name1` 和 `column_name2` 都是表 `table1` 和表 `table2` 中具有相同列名的列。在连接时，这两列的值都会被匹配。如果这两列中的任何一列的值在两个表中都不存在匹配项，则不会返回该行。
+
+需要注意的是，在使用 `USING` 子句连接表时，连接条件不能使用任何其他条件，例如 `WHERE` 子句。如果需要使用其他条件进行过滤，则需要使用 `ON` 子句进行连接，如下所示：
+
+```sql
+SELECT *
+FROM table1
+JOIN table2
+ON table1.column_name1 = table2.column_name1
+    AND table1.column_name2 = table2.column_name2
+WHERE table1.column_name3 = 'value';
+```
+
+在这个例子中，使用 `ON` 子句连接表，其中条件是 `table1` 和 `table2` 中具有相同列名的两列，同时还使用 `WHERE` 子句对第三列进行过滤。
+
+使用 `USING` 子句连接多个条件的好处在于它可以使 SQL 语句更加简洁和易读，使用 `ON` 子句连接多个条件会更加清晰，更容易理解连接条件。另外，使用 `USING` 子句可以更加安全，因为它只连接具有相同列名的列，从而避免了意外的连接错误。同时，在某些数据库管理系统中，`USING` 连接可以更快地执行查询，因为它不需要比较每个连接列的值，而且可以在连接列上创建索引以提高查询性能。总之，使用 `USING` 子句连接多个条件可以提高代码的可读性、可靠性和性能。
+
+#### LATERAL
+
+从 Oracle 12c 开始，通过使用关键字`LATERAL`，内联视图可以引用子句中内联视图定义左侧的表
+
+```sql
+SELECT
+    product_name,
+    category_name
+FROM
+    products p,
+    LATERAL(
+        SELECT
+            *
+        FROM
+            product_categories c
+        WHERE
+            c.category_id = p.category_id
+    )
+ORDER BY
+    product_name;
+
+SELECT T1.ID, T2.CREATED_DATE
+FROM TABLE1 T1
+LEFT JOIN LATERAL
+(
+SELECT MAX(T2.CREATED_DATE) CREATED_DATE
+FROM TABLE2 T2
+WHERE T2.ID = T1.ID
+) T2 
+ON 1 = 1;
+```
+
 #### LIKE
 
 在Oracle数据库中，`LIKE '%\%%' escape '\'`是一种特殊的模糊查询，
@@ -484,6 +574,7 @@ SELECT COUNT(1) FROM TEST WHERE ROWNUM <= 1
 
 ```sql
 SELECT * FROM customers WHERE email LIKE '%\%%' escape '\';
+select * from test WHERE owner LIKE 'test' ESCAPE '#' AND table_name LIKE 't#_test' ESCAPE '#';
 ```
 
 表示查询所有邮箱中包含`'%'`符号的客户记录。
